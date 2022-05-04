@@ -1,5 +1,5 @@
 #pragma once
-class Books {
+class Book {
 private:
 	char* author;
 	char* title;
@@ -8,14 +8,14 @@ private:
 	double rating; //9.5
 	int ISBN; //long int?
 	void copyTxt(char*& destination, const char* source);
-	void copyAll(const Books& other);
+	void copyAll(const Book& other);
 	void deleteAll();
 
 
 public:
 	//Dynamically allocated memory =>
-	Books(); //default constructor
-	Books(const Books& other); //copy constructor
-	Books& operator=(const Books& other); //=
-	~Books(); //destructor
+	Book(); //default constructor
+	Book(const Book& other); //copy constructor
+	Book& operator=(const Book& other); //=
+	~Book(); //destructor
 };

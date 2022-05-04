@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-	ofstream out("trying.txt");
+	/*ofstream out("trying.txt");
 	if (out.is_open())
 		out << "Is it working?" << endl;
 	else out << "Apparently not" << endl;
@@ -22,7 +22,7 @@ int main()
 			cout << text;
 		}
 	}
-	in.close();
+	in.close();*/
 
 	return 0;
 

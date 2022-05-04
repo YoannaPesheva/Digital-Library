@@ -1,14 +1,14 @@
-#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS //because of the strcpy() warning
 #include<iostream>
-#include "Books.h"
+#include "Book.h"
 
-void Books::copyTxt(char*& destination, const char* source)
+void Book::copyTxt(char*& destination, const char* source)
 {
 	destination = new(std::nothrow) char[strlen(source) + 1];
 	strcpy(destination, source);
 }
 
-void Books::copyAll(const Books& other)
+void Book::copyAll(const Book& other)
 {
 	ISBN = other.ISBN;
 	rating = other.rating;
@@ -18,7 +18,7 @@ void Books::copyAll(const Books& other)
 	copyTxt(summary, other.summary);
 }
 
-void Books::deleteAll()
+void Book::deleteAll()
 {
 	delete[] author;
 	delete[] title;
@@ -26,7 +26,7 @@ void Books::deleteAll()
 	delete[] summary;
 }
 
-Books::Books()
+Book::Book()
 {
 	author = nullptr;
 	title = nullptr;
@@ -36,12 +36,12 @@ Books::Books()
 	rating = -1; //needs to be between 0 and 10 !!!
 }
 
-Books::Books(const Books& other)
+Book::Book(const Book& other)
 {
 	copyAll(other);
 }
 
-Books& Books::operator=(const Books& other)
+Book& Book::operator=(const Book& other)
 {
 	if (this != &other)
 	{
@@ -52,7 +52,7 @@ Books& Books::operator=(const Books& other)
 	return *this;
 }
 
-Books::~Books()
+Book::~Book()
 {
 	deleteAll();
 }
