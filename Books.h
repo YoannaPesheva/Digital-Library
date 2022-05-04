@@ -6,7 +6,8 @@ private:
 	char* nameOfATextFile;
 	char* summary; //a short text 
 	double rating; //9.5
-	int ISBN; //long int? 
+	int ISBN; //long int?
+	void copyTxt(char*& destination, const char* source);
 public:
 	//Dynamically allocated memory =>
 	Books(); //default constructor
