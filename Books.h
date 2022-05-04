@@ -8,6 +8,10 @@ private:
 	double rating; //9.5
 	int ISBN; //long int?
 	void copyTxt(char*& destination, const char* source);
+	void copyAll(const Books& other);
+	void deleteAll();
+
+
 public:
 	//Dynamically allocated memory =>
 	Books(); //default constructor
