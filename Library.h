@@ -4,9 +4,10 @@
 class Library {
 private:
 	Book* library;
-	size_t capacity;
-	size_t currSize;
+	int capacity;
+	int currSize;
 	bool reallocate();
+	void copyAll(const Library& other);
 
 public:
 	Library();
