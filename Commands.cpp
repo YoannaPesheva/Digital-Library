@@ -7,6 +7,8 @@ const int FIND_A_BOOK = 2;
 const int OUTPUT_A_BOOK = 3;
 const int ADD_A_BOOK = 4;
 const int REMOVE_A_BOOK = 5;
+
+
 /*commands
 *	1.sort
 *		1.1 by title
@@ -14,7 +16,7 @@ const int REMOVE_A_BOOK = 5;
 *		1.3 by rating
 *			1.1.1-increasing
 *			1.1.2-decreasing
-* !!the output is only ever book's title, author and ISBN
+* !!the output is only every book's title, author and ISBN
 *	2. find a book by criteria
 *		2.1 by title
 *		2.2 author
@@ -26,6 +28,8 @@ const int REMOVE_A_BOOK = 5;
 *	4. add a book
 *	5. remove a book 
 */	
+
+
 void Commands::printCommands() {
 	std::cout << "List of Commands: " << std::endl;
 	std::cout << "1. Unauthorised access:" << std::endl;
