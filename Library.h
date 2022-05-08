@@ -13,5 +13,11 @@ public:
 	Library();
 	Library(const Library& other);
 	Library& operator =(const Library& other);
+	Book& operator [](int index) { return library[index]; }
+	Library& add(const Book& book);
 	~Library();
+
+	
+	
+
 };

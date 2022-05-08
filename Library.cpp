@@ -49,6 +49,14 @@ Library& Library::operator=(const Library& other)
 	return *this;
 }
 
+
+Library& Library::add(const Book& book)
+{
+	if (currSize == capacity) reallocate();
+	library[currSize++] = book;
+	return *this;
+}
+
 Library::~Library()
 {
 	delete[] library;

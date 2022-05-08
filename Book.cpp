@@ -8,6 +8,7 @@ void Book::copyTxt(char*& destination, const char* source)
 	strcpy(destination, source);
 }
 
+
 void Book::copyAll(const Book& other)
 {
 	ISBN = other.ISBN;

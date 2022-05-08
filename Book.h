@@ -18,4 +18,11 @@ public:
 	Book(const Book& other); //copy constructor
 	Book& operator=(const Book& other); //=
 	~Book(); //destructor
+
+	const char* getTitle() const { return this->title; }
+	void setTitle( const char* title)
+	{ 
+		delete[] this->title;
+		this->copyTxt(this->title, title);
+	}
 };
