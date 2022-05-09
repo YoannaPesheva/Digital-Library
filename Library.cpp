@@ -28,6 +28,18 @@ void Library::copyAll(const Library& other)
 
 }
 
+int Library::getBookIndex(const char* title)
+{
+	for (int i = 0; i < this->currSize; i++)
+	{
+		if (strcmp(title, this->library[i].getTitle()) == 0)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 Library::Library()
 {
 	capacity = 16;
@@ -50,12 +62,52 @@ Library& Library::operator=(const Library& other)
 }
 
 
-Library& Library::add(const Book& book)
+void Library::add(const Book& book)
 {
 	if (currSize == capacity) reallocate();
 	library[currSize++] = book;
-	return *this;
+	
 }
+
+
+void Library::remove(char* title)
+{
+	int index = getBookIndex(title);
+	if (index == -1)
+	{
+		std::cout << "The book you wanted to remove cannot be found!" << std::endl;
+	}
+	else {
+		for (int i = 0; i < currSize-1; i++)
+		{
+			std::swap(library[i], library[i + 1]);
+		}
+		currSize--;
+	}
+
+
+}
+
+void Library::sortByTitleAscending()
+{
+
+}
+
+void Library::sortByAuthorAscending()
+{
+
+}
+
+void Library::sortByRatingAscending()
+{
+	for (int i = 0; i < currSize; i++)
+	{
+		for (int j = 0; j < currSize - i - 1; j++)
+			if (library[j].getRating() > library[j + 1].getRating())
+				std::swap(library[j], library[j + 1]);
+	}
+}
+
 
 Library::~Library()
 {
