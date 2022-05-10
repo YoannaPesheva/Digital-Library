@@ -53,6 +53,17 @@ public:
 	const char* getAuthor() const { return this->author; }
 	const char* getTextFile() const { return this->nameOfATextFile; }
 	const char* getSummary() const { return this->summary; }
-	double  getRating() const { return this->rating; }
-	int getISBN() const { return this->ISBN; }
+	const double  getRating() const { return this->rating; }
+	const int getISBN() const { return this->ISBN; }
+
+
+	void print()
+	{
+		std::cout << this->title << std::endl;
+		std::cout << this->author<<std::endl;
+		std::cout << this->nameOfATextFile << std::endl;
+		std::cout << this->summary << std::endl;
+		std::cout << this->rating << std::endl;
+		std::cout << this->ISBN << std::endl;
+	}
 };

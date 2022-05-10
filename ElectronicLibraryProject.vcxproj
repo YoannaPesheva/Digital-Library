@@ -140,11 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
+    <ClInclude Include="CommandExecuter.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Commands.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
+    <ClCompile Include="CommandExecuter.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="main.cpp" />

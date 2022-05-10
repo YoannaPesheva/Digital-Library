@@ -40,6 +40,8 @@ int Library::getBookIndex(const char* title)
 	return -1;
 }
 
+
+//big 4
 Library::Library()
 {
 	capacity = 16;
@@ -61,7 +63,13 @@ Library& Library::operator=(const Library& other)
 	return *this;
 }
 
+Library::~Library()
+{
+	delete[] library;
+}
+//end of big 4
 
+//add a book
 void Library::add(const Book& book)
 {
 	if (currSize == capacity) reallocate();
@@ -69,7 +77,7 @@ void Library::add(const Book& book)
 	
 }
 
-
+//remove a book
 void Library::remove(char* title)
 {
 	int index = getBookIndex(title);
@@ -88,14 +96,33 @@ void Library::remove(char* title)
 
 }
 
+//sorting functions
 void Library::sortByTitleAscending()
 {
-
+	for (int i = 0; i < currSize; i++)
+	{
+		for (int j = 0; j < currSize - i - 1; j++)
+		{
+			if (strcmp(library[j].getTitle(), library[j + 1].getTitle())>0)
+			{
+				std::swap(library[j], library[j + 1]);
+			}
+		}
+	}
 }
 
 void Library::sortByAuthorAscending()
 {
-
+	for (int i = 0; i < currSize; i++)
+	{
+		for (int j = 0; j < currSize - i - 1; j++)
+		{
+			if (strcmp(library[j].getAuthor(), library[j + 1].getAuthor()) > 0)
+			{
+				std::swap(library[j], library[j + 1]);
+			}
+		}
+	}
 }
 
 void Library::sortByRatingAscending()
@@ -108,8 +135,54 @@ void Library::sortByRatingAscending()
 	}
 }
 
-
-Library::~Library()
+void Library::sortByTitleDescending()
 {
-	delete[] library;
+	for (int i = 0; i < currSize; i++)
+	{
+		for (int j = 0; j < currSize - i - 1; j++)
+		{
+			if (strcmp(library[j].getTitle(), library[j + 1].getTitle()) < 0)
+			{
+				std::swap(library[j], library[j + 1]);
+			}
+		}
+	}
+}
+
+void Library::sortByAuthorDescending()
+{
+	for (int i = 0; i < currSize; i++)
+	{
+		for (int j = 0; j < currSize - i - 1; j++)
+		{
+			if (strcmp(library[j].getAuthor(), library[j + 1].getAuthor()) < 0)
+			{
+				std::swap(library[j], library[j + 1]);
+			}
+		}
+	}
+}
+
+
+void Library::sortByRatingDescending()
+{
+	for (int i = 0; i < currSize; i++)
+	{
+		for (int j = 0; j < currSize - i - 1; j++)
+			if (library[j].getRating() < library[j + 1].getRating())
+				std::swap(library[j], library[j + 1]);
+	}
+}
+//end of sorting functions
+
+//printing the info after the sorting functions
+std::ostream& operator<<(std::ostream& out, const Library& library)
+{
+	for (int i = 0; i < library.currSize; i++)
+	{
+		out << library[i].getTitle() << std::endl;
+		out << library[i].getAuthor() << std::endl;
+		out << library[i].getISBN() << std::endl;
+	}
+	return out;
 }

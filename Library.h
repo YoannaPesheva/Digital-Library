@@ -11,17 +11,29 @@ private:
 	int getBookIndex(const char* title);
 
 public:
-	Library();
-	Library(const Library& other);
-	Library& operator =(const Library& other);
+	Library(); //default constructor
+	Library(const Library& other); //copy constructor
+	Library& operator =(const Library& other); //=
+	~Library();//destructor
+
 	Book& operator [](int index) { return library[index]; }
 	const Book operator[](int ind) const { return library[ind]; }
+
+	const int getCurrSize() const {
+		return currSize;
+	}
+
 	void add(const Book& book);
 	void remove(char* title);
+
 	void sortByTitleAscending();
 	void sortByAuthorAscending();
 	void sortByRatingAscending();
-	~Library();
+	void sortByTitleDescending();
+	void sortByAuthorDescending();
+	void sortByRatingDescending();
+
+	friend std::ostream& operator<<(std::ostream& out, const Library& library);
 
 	
 	
