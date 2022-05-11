@@ -68,17 +68,26 @@ public:
 	}
 
 
-	friend std::istream& operator >> (std::istream& in, Book& book)
-	{
-		char buffer[1025] = { '\0', };
-		in >> buffer;
-		in >> book.title;
-		in >> book.author;
-		in >> book.nameOfATextFile;
-		in >> book.summary;
-		in >> book.rating;
-		in >> book.ISBN;
+	//friend std::istream& operator >>(std::istream& in, Book& book)
+	//{
+	//	in >> book.title;
+	//	in >> book.author;
+	//	in >> book.nameOfATextFile;
+	//	in >> book.summary;
+	//	in >> book.rating;
+	//	in >> book.ISBN;
+	//	return in;
+	//}
+	//friend std::ostream& operator<<(std::ostream& out, const Book& book)
+	//{
+	//	out << book.getTitle();
+	//	out << book.getAuthor();
+	//	out << book.getTextFile();
+	//	out << book.getSummary();
+	//	out << book.getRating();
+	//	out << book.getISBN();
+	//	return out;
+	//	
+	//}
 
-		return in;
-	}
 };

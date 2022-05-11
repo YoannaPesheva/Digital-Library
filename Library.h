@@ -25,6 +25,10 @@ public:
 
 	void add(const Book& book);
 	void remove(char* title);
+	int getIndexOfBook(char* title)
+	{
+		return getBookIndex(title);
+	}
 
 	void sortByTitleAscending();
 	void sortByAuthorAscending();
@@ -34,7 +38,7 @@ public:
 	void sortByRatingDescending();
 
 	friend std::ostream& operator<<(std::ostream& out, const Library& library);
-
+	friend std::ostream& operator>>(std::istream& in, Library& library);
 	
 	
 

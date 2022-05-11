@@ -186,3 +186,8 @@ std::ostream& operator<<(std::ostream& out, const Library& library)
 	}
 	return out;
 }
+
+//std::ostream& operator>>(std::istream& in, Library& library)
+//{ 
+//	return in;
+//}

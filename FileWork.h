@@ -14,32 +14,14 @@ public:
 
 void FileWork::readBooksFromFile(Library& library)
 {
-	ifstream in;
-	in.open("Library.txt");
+	ifstream in("Library.txt");
 	if (!in.is_open())
 	{
-		cout << "Something went wrong while opening the file. Please try later!" << endl;
-		return;
+		std::cout << "Error occured while trying to open the file!" << std::endl;
 	}
-	Book tempBook;
-	while (!in.eof())
-	{
-		char* buffer = new char[512];
-		in.getline(buffer, 100);
-		tempBook.setTitle(buffer);
-		in.getline(buffer, 100);
-		tempBook.setAuthor(buffer);
-		in.getline(buffer, 100);
-		tempBook.setTextFile(buffer);
-		in.getline(buffer, 500);
-		tempBook.setSummary(buffer);
-		library.add(tempBook);
-		delete[] buffer;
-	}
-	cout << library;
 	in.close();
-
 }
+
 
 void FileWork::saveChanges()
 {

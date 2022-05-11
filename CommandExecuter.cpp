@@ -239,6 +239,8 @@ void CommandExecuter::addBook()
 		std::cout << "Please enter the name of the text file of the book: ";
 		std::cin.getline(temp, 100);
 		newBook.setTextFile(temp);
+		std::ofstream newFile(newBook.getTextFile());
+		newFile.close();
 		std::cout << "Please enter the summary of the book: ";
 		std::cin.getline(temp, 511);
 		newBook.setSummary(temp);
@@ -282,6 +284,26 @@ void CommandExecuter::removeBook()
 		std::cout << "Please enter the title of the book you want removed: ";
 		char* title = new char[101];
 		std::cin.getline(title, 100);
+		std::cout << "Do you want the file where the content of the book is stored to be deleted as well? (please press 1 if you do and 2 if you do not want such thing to be done: ";
+		int removeFile = 0;
+		cin >> removeFile;
+		if (removeFile == 1)
+		{
+			int i = 0;
+			while (i < library.getCurrSize() && strcmp(library[i].getTitle(), title) != 0)
+			{
+				i++;
+			}
+			if (strcmp(library[i].getTitle(), title) == 0)
+			{
+				int result=remove(library[i].getTextFile());
+				if (result == 0)
+				{
+					std::cout << "File deleted successfully!" << std::endl;
+				}
+				else std::cout << "An error occured while deleting the file!" << std::endl;
+			}
+		}
 		library.remove(title);
 		delete[] title;
 		title = nullptr;
@@ -290,6 +312,7 @@ void CommandExecuter::removeBook()
 
 void CommandExecuter::EndProgram()
 {
+	FileWork::saveChanges();
 	std::cout << "Thank you for using the library. Looking forward to seeing you again!" << std::endl;
 	return;
 }
