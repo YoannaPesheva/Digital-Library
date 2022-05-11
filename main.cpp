@@ -3,12 +3,13 @@
 #include<fstream>
 #include<cstring>
 #include "CommandExecuter.h";
-
+using namespace std;
 
 int main()
 {
 	CommandExecuter c;
 	c.start();
+
 
 	/*ofstream out("trying.txt");
 	if (out.is_open())

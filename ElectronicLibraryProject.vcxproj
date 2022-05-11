@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Book.h" />
     <ClInclude Include="CommandExecuter.h" />
+    <ClInclude Include="FileWork.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Commands.h" />
   </ItemGroup>

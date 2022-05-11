@@ -178,7 +178,7 @@ void Library::sortByRatingDescending()
 //printing the info after the sorting functions
 std::ostream& operator<<(std::ostream& out, const Library& library)
 {
-	for (int i = 0; i < library.currSize; i++)
+	for (int i = 0; i < library.getCurrSize(); i++)
 	{
 		out << library[i].getTitle() << std::endl;
 		out << library[i].getAuthor() << std::endl;

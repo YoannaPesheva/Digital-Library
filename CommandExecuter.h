@@ -26,4 +26,5 @@ public:
 	void removeBook();
 
 	void EndProgram();
+
 };

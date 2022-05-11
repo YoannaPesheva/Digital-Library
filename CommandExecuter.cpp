@@ -1,7 +1,13 @@
 #include "CommandExecuter.h"
+#include "FileWork.h"
+
+#include<iostream>
+#include<fstream>
 
 void CommandExecuter::start()
 {
+	Library library;
+	FileWork::readBooksFromFile(library);
 	char command[16] = "0";
 	int commandCode;
 	Commands::printCommands();

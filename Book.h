@@ -66,4 +66,19 @@ public:
 		std::cout << this->rating << std::endl;
 		std::cout << this->ISBN << std::endl;
 	}
+
+
+	friend std::istream& operator >> (std::istream& in, Book& book)
+	{
+		char buffer[1025] = { '\0', };
+		in >> buffer;
+		in >> book.title;
+		in >> book.author;
+		in >> book.nameOfATextFile;
+		in >> book.summary;
+		in >> book.rating;
+		in >> book.ISBN;
+
+		return in;
+	}
 };
