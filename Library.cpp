@@ -176,18 +176,29 @@ void Library::sortByRatingDescending()
 //end of sorting functions
 
 //printing the info after the sorting functions
+void Library::printSorted(const Library& library)
+{
+	for (int i = 0; i < library.getCurrSize(); i++)
+	{
+		std::cout << library[i].getTitle() << std::endl;
+		std::cout << library[i].getAuthor() << std::endl;
+		std::cout << library[i].getISBN() << std::endl;
+		std::cout << std::endl;
+	}
+}
+
 std::ostream& operator<<(std::ostream& out, const Library& library)
 {
 	for (int i = 0; i < library.getCurrSize(); i++)
 	{
 		out << library[i].getTitle() << std::endl;
 		out << library[i].getAuthor() << std::endl;
+		out << library[i].getTextFile() << std::endl;
+		out << library[i].getSummary() << std::endl;
+		out << library[i].getRating() << std::endl;
 		out << library[i].getISBN() << std::endl;
+		out << std::endl;
 	}
 	return out;
 }
 
-//std::ostream& operator>>(std::istream& in, Library& library)
-//{ 
-//	return in;
-//}

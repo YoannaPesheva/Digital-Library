@@ -36,9 +36,9 @@ public:
 	void sortByTitleDescending();
 	void sortByAuthorDescending();
 	void sortByRatingDescending();
+	void printSorted(const Library& library);
 
 	friend std::ostream& operator<<(std::ostream& out, const Library& library);
-	friend std::ostream& operator>>(std::istream& in, Library& library);
 	
 	
 

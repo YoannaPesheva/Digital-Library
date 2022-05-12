@@ -1,5 +1,6 @@
 #include "CommandExecuter.h"
 #include "FileWork.h"
+#include "Library.h"
 
 #include<iostream>
 #include<fstream>
@@ -48,7 +49,7 @@ void CommandExecuter::start()
 	} while (commandCode != -1);
 	if (commandCode == -1)
 	{
-		EndProgram();
+		EndProgram(library);
 	}
 }
 
@@ -105,7 +106,7 @@ void CommandExecuter::executeSort()
 			library.sortByRatingDescending();
 		}
 	}
-	std::cout << library;
+	library.printSorted(library);
 }
 
 void CommandExecuter::executeFind()
@@ -213,7 +214,7 @@ void CommandExecuter::addBook()
 	//the administrator's password is "pass" :D
 	wrongTries = 3;
 	std::cout << "This is a command that needs authorization. Please enter the administrator's password: ";
-	std::cin.getline(passInput, 19); //????????????????????????
+	std::cin.getline(passInput, 19);
 	while (strcmp(passInput, "pass") != 0)
 	{
 		wrongTries--;
@@ -286,7 +287,7 @@ void CommandExecuter::removeBook()
 		std::cin.getline(title, 100);
 		std::cout << "Do you want the file where the content of the book is stored to be deleted as well? (please press 1 if you do and 2 if you do not want such thing to be done: ";
 		int removeFile = 0;
-		cin >> removeFile;
+		std::cin >> removeFile;
 		if (removeFile == 1)
 		{
 			int i = 0;
@@ -310,9 +311,9 @@ void CommandExecuter::removeBook()
 	}
 }
 
-void CommandExecuter::EndProgram()
+void CommandExecuter::EndProgram(Library& library)
 {
-	FileWork::saveChanges();
+	FileWork::saveChanges(library);
 	std::cout << "Thank you for using the library. Looking forward to seeing you again!" << std::endl;
 	return;
 }
