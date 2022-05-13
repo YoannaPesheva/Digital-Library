@@ -10,6 +10,7 @@ bool Library::reallocate()
 		std::cout << "There was a problem allocating the needed memory!" << std::endl;
 		return false;
 	}
+	//!!!!!!!!!!!!!!
 	for (int i = 0; i < currSize; i++) temporary[i] = library[i];
 	delete[] library;
 	library = temporary;
@@ -30,6 +31,7 @@ void Library::copyAll(const Library& other)
 
 int Library::getBookIndex(const char* title)
 {
+	//!!!!!!!!!!!!!!!!!!
 	for (int i = 0; i < this->currSize; i++)
 	{
 		if (strcmp(title, this->library[i].getTitle()) == 0)
@@ -178,6 +180,7 @@ void Library::sortByRatingDescending()
 //printing the info after the sorting functions
 void Library::printSorted(const Library& library)
 {
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	for (int i = 0; i < library.getCurrSize(); i++)
 	{
 		std::cout << library[i].getTitle() << std::endl;
@@ -189,7 +192,8 @@ void Library::printSorted(const Library& library)
 
 std::ostream& operator<<(std::ostream& out, const Library& library)
 {
-	for (int i = 0; i < library.getCurrSize(); i++)
+	int end = library.getCurrSize();
+	for (int i = 0; i < end-1; i++)
 	{
 		out << library[i].getTitle() << std::endl;
 		out << library[i].getAuthor() << std::endl;
@@ -197,8 +201,15 @@ std::ostream& operator<<(std::ostream& out, const Library& library)
 		out << library[i].getSummary() << std::endl;
 		out << library[i].getRating() << std::endl;
 		out << library[i].getISBN() << std::endl;
-		out << std::endl;
+		//out << "-";
 	}
+	out << library[end-1].getTitle() << std::endl;
+	out << library[end-1].getAuthor() << std::endl;
+	out << library[end-1].getTextFile() << std::endl;
+	out << library[end-1].getSummary() << std::endl;
+	out << library[end-1].getRating() << std::endl;
+	out << library[end-1].getISBN();
+
 	return out;
 }
 

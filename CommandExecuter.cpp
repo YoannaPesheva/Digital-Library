@@ -7,7 +7,6 @@
 
 void CommandExecuter::start()
 {
-	Library library;
 	FileWork::readBooksFromFile(library);
 	char command[16] = "0";
 	int commandCode;
@@ -49,7 +48,7 @@ void CommandExecuter::start()
 	} while (commandCode != -1);
 	if (commandCode == -1)
 	{
-		EndProgram(library);
+		EndProgram();
 	}
 }
 
@@ -311,7 +310,7 @@ void CommandExecuter::removeBook()
 	}
 }
 
-void CommandExecuter::EndProgram(Library& library)
+void CommandExecuter::EndProgram()
 {
 	FileWork::saveChanges(library);
 	std::cout << "Thank you for using the library. Looking forward to seeing you again!" << std::endl;

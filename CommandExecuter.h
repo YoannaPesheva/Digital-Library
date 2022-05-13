@@ -9,7 +9,7 @@ private:
 	Library library;
 
 public:
-	void start();
+	void  start();
 
 	void InvalidCommandMessage();
 
@@ -25,6 +25,6 @@ public:
 
 	void removeBook();
 
-	void EndProgram(Library& library);
+	void EndProgram();
 
 };
