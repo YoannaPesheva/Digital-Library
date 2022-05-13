@@ -2,6 +2,7 @@
 #include "FileWork.h"
 #include "Library.h"
 
+#include<conio.h>
 #include<iostream>
 #include<fstream>
 
@@ -136,18 +137,41 @@ void CommandExecuter::executeFind()
 	}
 }
 
-void CommandExecuter::findBookByTitle()
+
+void CommandExecuter::findBookByTitle() //beshe void
 {
 	char* title = new char[101];
 	std::cout << "Please enter the title of the book you want to find: ";
 	std::cin.ignore(1, '/n');
 	std::cin.getline(title, 100);
+	int size2 = strlen(title);
 	for (int i = 0; i < library.getCurrSize(); i++)
 	{
-		if (strcmp(title, library[i].getTitle()) == 0)
+		int size1 = strlen(library[i].getTitle());
+		if (size1 == size2)
 		{
-			library[i].print();
+			int j=0;
+			while(j<size1)
+			{
+				if ((title[j] > 'A' && title[i] < 'Z') && (title[j]!=library[i].getTitle()[j])) //cant make both char arrays to small 
+					//letters and compare them, cuz one of them is a 
+					//const char and cannot be changed
+				{
+					if (title[j] - 32 != library[i].getTitle()[j])
+					{
+						break;
+					}
+				}
+				j++;
+			}
+			if (j == size1)
+			{
+				std::cout << "We found your book!" << std::endl;
+				library[j].print();
+				break;
+			}
 		}
+		std::cout << "Sorry, we couldn\'t find your book!" << std::endl;
 	}
 	delete[] title;
 	title = nullptr;
@@ -173,20 +197,19 @@ void CommandExecuter::findBookByAuthor()
 
 void CommandExecuter::findBookBySummary()
 {
+	//!!!!!
 	char* summary = new char[512];
 	std::cout << "Please enter part of the summary of the book you want to find: ";
 	std::cin.ignore(1, '/n');
 	std::cin.getline(summary, 511);
-	char* str = nullptr;
 	for (int i = 0; i < library.getCurrSize(); i++)
 	{
-		str = std::strstr(summary, library[i].getSummary());
-		if (str != nullptr)
+		if((strstr(library[i].getSummary(),summary))!=nullptr)
 		{
 			library[i].print();
+			break;
 		}
 	}
-	delete str;
 	delete[] summary;
 	summary = nullptr;
 }
@@ -213,16 +236,31 @@ void CommandExecuter::addBook()
 	//the administrator's password is "pass" :D
 	wrongTries = 3;
 	std::cout << "This is a command that needs authorization. Please enter the administrator's password: ";
-	std::cin.getline(passInput, 19);
+	int i = 0;
+	char ch = _getch();
+	//std::cin.getline(passInput, 19);
+	while (ch != 13)
+	{
+		passInput[i++] = ch;
+		std::cout << "*";
+		ch = _getch();
+	}
 	while (strcmp(passInput, "pass") != 0)
 	{
 		wrongTries--;
 		if (wrongTries == 0) {
-			std::cout << "Sorry, you have entered a wrong password 3 consecutive times and access to the command \"add\" was denied. Try again later!" << std::endl;
+			std::cout <<std::endl<< "Sorry, you have entered a wrong password 3 consecutive times and access to the command \"add\" was denied. Try again later!" << std::endl;
 			break;
 		}
-		std::cout << "Wrong password. You have " << wrongTries << " tries left. Please enter the administator's password: ";
-		std::cin.getline(passInput, 19);
+		std::cout <<std::endl<< "Wrong password. You have " << wrongTries << " tries left. Please enter the administator's password: ";
+		i = 0;
+		ch = _getch();
+		while (ch != 13)
+		{
+			passInput[i++] = ch;
+			std::cout << "*";
+			ch = _getch();
+		}
 	}
 
 	if (wrongTries != 0) {
@@ -230,7 +268,7 @@ void CommandExecuter::addBook()
 		char* temp = new char[512];
 		double rating = 0;
 		int ISBN = 0;
-		std::cout << "Please enter the name of the book: ";
+		std::cout << std::endl<<"Please enter the name of the book : ";
 		std::cin.getline(temp, 100);
 		newBook.setTitle(temp);
 		std::cout << "Please enter the author of the book: ";
@@ -316,5 +354,4 @@ void CommandExecuter::EndProgram()
 	std::cout << "Thank you for using the library. Looking forward to seeing you again!" << std::endl;
 	return;
 }
-
 
