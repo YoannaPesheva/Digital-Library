@@ -1,7 +1,7 @@
 #pragma once
 #include<iostream>
-#include "Library.h";
-#include "Commands.h";
+#include "Library.h"
+#include "Commands.h"
 
 class CommandExecuter 
 {
@@ -9,8 +9,10 @@ private:
 	Library library;
 
 public:
+	//start the program
 	void  start();
 
+	// commands
 	void InvalidCommandMessage();
 
 	void executeSort();

@@ -1,7 +1,8 @@
 #pragma once
+#include "Library.h"
+
 #include<iostream>
 #include<fstream>
-#include "Library.h"
 
 class FileWork
 {
@@ -11,6 +12,8 @@ public:
 
 };
 
+
+//read books from the file
 void FileWork::readBooksFromFile(Library& library)
 {
 	std::ifstream myFile("Library.txt", std::ios::in);
@@ -20,7 +23,7 @@ void FileWork::readBooksFromFile(Library& library)
 	}
 	int propertyCount = 0;
 	char* buffer = new char[100];
-	Book* tempBook=new Book();
+	Book* tempBook = new Book();
 	bool isEmpty = myFile.peek() == EOF; //!!!!!!!!!!!
 	if (!isEmpty)
 	{
@@ -76,7 +79,7 @@ void FileWork::readBooksFromFile(Library& library)
 }
 
 
-
+//save the changes
 void FileWork::saveChanges(Library& library)
 {
 	std::ofstream out("Library.txt", std::ios::out);

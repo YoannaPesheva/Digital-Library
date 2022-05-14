@@ -88,9 +88,9 @@ void Library::remove(char* title)
 		std::cout << "The book you wanted to remove cannot be found!" << std::endl;
 	}
 	else {
-		for (int i = 0; i < currSize-1; i++)
+		for (int i = index+1; i<currSize; i++)
 		{
-			std::swap(library[i], library[i + 1]);
+			std::swap(library[index], library[i]);
 		}
 		currSize--;
 	}
@@ -180,14 +180,18 @@ void Library::sortByRatingDescending()
 //printing the info after the sorting functions
 void Library::printSorted(const Library& library)
 {
+	int size = library.getCurrSize()-1;
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	for (int i = 0; i < library.getCurrSize(); i++)
+	for (int i = 0; i < size; i++)
 	{
 		std::cout << library[i].getTitle() << std::endl;
 		std::cout << library[i].getAuthor() << std::endl;
 		std::cout << library[i].getISBN() << std::endl;
 		std::cout << std::endl;
 	}
+		std::cout << library[size].getTitle() << std::endl;
+		std::cout << library[size].getAuthor() << std::endl;
+		std::cout << library[size].getISBN() << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& out, const Library& library)

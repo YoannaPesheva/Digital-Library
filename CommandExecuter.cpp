@@ -6,51 +6,11 @@
 #include<iostream>
 #include<fstream>
 
+const char PASSWORD[] = "pass";
+
 void CommandExecuter::start()
 {
 	FileWork::readBooksFromFile(library);
-	char command[16] = "0";
-	int commandCode;
-	Commands::printCommands();
-	std::cout << "What would you like to do: ";
-	std::cin.getline(command, 16);
-	do
-	{
-		commandCode = Commands::getCommand(command);
-		if (commandCode == 0)
-		{
-			InvalidCommandMessage();
-		}
-		else if (commandCode == 1)
-		{
-			executeSort();
-		}
-		else if (commandCode == 2)
-		{
-			executeFind();
-		}
-		else if (commandCode == 3)
-		{
-			std::cout << "Function not done yet :D" << std::endl;
-		}
-		else if (commandCode == 4)
-		{
-			addBook();
-		}
-		else if (commandCode == 5)
-		{
-			removeBook();
-		}
-		if (commandCode == -1) break;
-		std::cout << "What would you like to do: ";
-		std::cin.ignore(10, '\n');
-		std::cin.getline(command, 16);
-
-	} while (commandCode != -1);
-	if (commandCode == -1)
-	{
-		EndProgram();
-	}
 }
 
 void CommandExecuter::InvalidCommandMessage()
@@ -107,6 +67,7 @@ void CommandExecuter::executeSort()
 		}
 	}
 	library.printSorted(library);
+	std::cin.ignore(10, '\n'); //!!!!
 }
 
 void CommandExecuter::executeFind()
@@ -138,7 +99,7 @@ void CommandExecuter::executeFind()
 }
 
 
-void CommandExecuter::findBookByTitle() //beshe void
+void CommandExecuter::findBookByTitle()
 {
 	char* title = new char[101];
 	std::cout << "Please enter the title of the book you want to find: ";
@@ -228,31 +189,27 @@ void CommandExecuter::findBookByISBN()
 	}
 }
 
-void CommandExecuter::addBook()
+bool isPassCorrect(const char* password)
 {
-	char password[] = "pass";
-	char passInput[20] = "";
+	char passInput[100] = "";
 	int wrongTries;
-	//the administrator's password is "pass" :D
 	wrongTries = 3;
 	std::cout << "This is a command that needs authorization. Please enter the administrator's password: ";
 	int i = 0;
 	char ch = _getch();
-	//std::cin.getline(passInput, 19);
 	while (ch != 13)
 	{
 		passInput[i++] = ch;
 		std::cout << "*";
 		ch = _getch();
 	}
-	while (strcmp(passInput, "pass") != 0)
+	while (strcmp(passInput, password) != 0)
 	{
 		wrongTries--;
 		if (wrongTries == 0) {
-			std::cout <<std::endl<< "Sorry, you have entered a wrong password 3 consecutive times and access to the command \"add\" was denied. Try again later!" << std::endl;
-			break;
+			return false;
 		}
-		std::cout <<std::endl<< "Wrong password. You have " << wrongTries << " tries left. Please enter the administator's password: ";
+		std::cout << std::endl << "Wrong password. You have " << wrongTries << " tries left. Please enter the administator's password: ";
 		i = 0;
 		ch = _getch();
 		while (ch != 13)
@@ -262,8 +219,44 @@ void CommandExecuter::addBook()
 			ch = _getch();
 		}
 	}
+	return true;
+}
+void CommandExecuter::addBook()
+{
+	//char password[] = "pass";
+	//char passInput[100] = "";
+	//int wrongTries;
+	////the administrator's password is "pass" :D
+	//wrongTries = 3;
+	//std::cout << "This is a command that needs authorization. Please enter the administrator's password: ";
+	//int i = 0;
+	//char ch = _getch();
+	////std::cin.getline(passInput, 19);
+	//while (ch != 13)
+	//{
+	//	passInput[i++] = ch;
+	//	std::cout << "*";
+	//	ch = _getch();
+	//}
+	//while (strcmp(passInput, "pass") != 0)
+	//{
+	//	wrongTries--;
+	//	if (wrongTries == 0) {
+	//		std::cout <<std::endl<< "Sorry, you have entered a wrong password 3 consecutive times and access to the command \"add\" was denied. Try again later!" << std::endl;
+	//		break;
+	//	}
+	//	std::cout <<std::endl<< "Wrong password. You have " << wrongTries << " tries left. Please enter the administator's password: ";
+	//	i = 0;
+	//	ch = _getch();
+	//	while (ch != 13)
+	//	{
+	//		passInput[i++] = ch;
+	//		std::cout << "*";
+	//		ch = _getch();
+	//	}
+	//}
 
-	if (wrongTries != 0) {
+	if (isPassCorrect(PASSWORD)) {
 		Book newBook;
 		char* temp = new char[512];
 		double rating = 0;
@@ -295,56 +288,57 @@ void CommandExecuter::addBook()
 		} while (ISBN <= 0);
 		newBook.setISBN(ISBN);
 		library.add(newBook);
+		std::cout << "The book was added successfully!" << std::endl;
 		delete[] temp;
 		temp = nullptr;
+		std::cin.ignore(10, '\n');
+	}
+	else
+	{
+		std::cout << std::endl << "Sorry, you have entered a wrong password 3 consecutive times and access to the command \"add\" was denied. Try again later!" << std::endl;
 	}
 }
 
 void CommandExecuter::removeBook()
 {
-	char password[] = "pass";
-	char passInput[20] = "";
-	int wrongTries;
-	wrongTries = 3;
-	std::cout << "This is a command that needs authorization. Please enter the administrator's password: ";
-	std::cin.getline(passInput, 19);
-	while (strcmp(passInput, "pass") != 0)
-	{
-		wrongTries--;
-		if (wrongTries == 0) {
-			std::cout << "Sorry, you have entered a wrong password 3 consecutive times and access to the command \"add\" was denied. Try again later!" << std::endl;
-			break;
-		}
-		std::cout << "Wrong password. You have " << wrongTries << " tries left. Please enter the administator's password: ";
-		std::cin.getline(passInput, 19);
-	}
-	if (wrongTries != 0) {
-		std::cout << "Please enter the title of the book you want removed: ";
+	
+	if (isPassCorrect(PASSWORD)) {
+		std::cout <<std::endl<< "Please enter the title of the book you want removed: ";
 		char* title = new char[101];
 		std::cin.getline(title, 100);
 		std::cout << "Do you want the file where the content of the book is stored to be deleted as well? (please press 1 if you do and 2 if you do not want such thing to be done: ";
 		int removeFile = 0;
 		std::cin >> removeFile;
-		if (removeFile == 1)
+		int i = 0;
+		while (i < library.getCurrSize() && strcmp(library[i].getTitle(), title) != 0)
 		{
-			int i = 0;
-			while (i < library.getCurrSize() && strcmp(library[i].getTitle(), title) != 0)
-			{
 				i++;
-			}
-			if (strcmp(library[i].getTitle(), title) == 0)
+		}
+		if (i < library.getCurrSize() && strcmp(library[i].getTitle(), title) == 0)
+		{
+			if (removeFile == 1)
 			{
-				int result=remove(library[i].getTextFile());
+				int result = remove(library[i].getTextFile());
 				if (result == 0)
 				{
 					std::cout << "File deleted successfully!" << std::endl;
 				}
-				else std::cout << "An error occured while deleting the file!" << std::endl;
+				else
+				{
+					std::cout << "An error occured while deleting the file!" << std::endl;
+					return;
+				}
 			}
+			library.remove(title);
+			std::cout << "Book removed successfully" << std::endl;
 		}
-		library.remove(title);
+		std::cin.ignore(10, '\n');
 		delete[] title;
 		title = nullptr;
+	}
+	else
+	{
+		std::cout << std::endl << "Sorry, you have entered a wrong password 3 consecutive times and access to the command \"add\" was denied. Try again later!" << std::endl;
 	}
 }
 
