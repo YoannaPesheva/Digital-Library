@@ -6,7 +6,7 @@ const int END_SESSION = -1;
 const int INVALID_COMMAND = 0;
 const int SORT_BOOKS = 1;
 const int FIND_A_BOOK = 2;
-const int OUTPUT_A_BOOK = 3;
+const int READ_A_BOOK = 3;
 const int ADD_A_BOOK = 4;
 const int REMOVE_A_BOOK = 5;
 const int GET_HELP = 6;
@@ -16,7 +16,7 @@ const int GET_HELP = 6;
 void Commands::printCommands() {
 	std::cout << "List of Commands: " << std::endl;
 	std::cout << "1. Unauthorised access:" << std::endl;
-	std::cout << "  1.1 Sort (the books by a criteria).\n  1.2. Find (a book by a criteria).\n  1.3. Output (a book)." << std::endl;
+	std::cout << "  1.1 Sort (the books by a criteria).\n  1.2. Find (a book by a criteria).\n  1.3. Read (a book)." << std::endl;
 	std::cout << "2. Authorised access:" << std::endl;
 	std::cout << "  2.1. Add (a book).\n  2.2. Remove (a book)." << std::endl;
 	std::cout << "3. End (the session)" << std::endl;
@@ -35,9 +35,9 @@ int Commands::getCommand(const char* command)
 	{
 		return FIND_A_BOOK;
 	}
-	else if (strcmp(command, "Output") == 0 || strcmp(command, "output") == 0)
+	else if (strcmp(command, "Read") == 0 || strcmp(command, "read") == 0)
 	{
-		return OUTPUT_A_BOOK;
+		return READ_A_BOOK;
 	}
 	else if (strcmp(command, "Add") == 0 || strcmp(command, "add") == 0)
 	{

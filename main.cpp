@@ -31,7 +31,7 @@ int main()
 		}
 		else if (commandCode == 3)
 		{
-			std::cout << "Function not done yet :D" << std::endl;
+			c.readContent();
 		}
 		else if (commandCode == 4)
 		{

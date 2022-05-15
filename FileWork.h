@@ -19,7 +19,7 @@ void FileWork::readBooksFromFile(Library& library)
 	std::ifstream myFile("Library.txt", std::ios::in);
 	if (!myFile.is_open())
 	{
-		std::cout << ";-;" << std::endl;
+		std::cout << "There was an error while trying to open the file!" << std::endl;
 	}
 	int propertyCount = 0;
 	char* buffer = new char[100];
@@ -67,8 +67,11 @@ void FileWork::readBooksFromFile(Library& library)
 				int isbn = std::strtol(buffer, nullptr, 10); //turns char arr into int
 				tempBook->setISBN(isbn);
 
-				std::ofstream newFile(tempBook->getTextFile());
-				newFile.close();
+				if (!std::ifstream(tempBook->getTextFile()))
+				{
+					std::ofstream newFile(tempBook->getTextFile());
+					newFile.close();
+				}
 
 				propertyCount = 0;
 				library.add(*tempBook);

@@ -80,16 +80,20 @@ int isSameArr(char* firstArr, const char* secondArr)
 
 
 //CommandExecuter functions
+
+//start the program
 void CommandExecuter::start()
 {
 	FileWork::readBooksFromFile(library);
 }
 
+//invalid input
 void CommandExecuter::InvalidCommandMessage()
 {
 	std::cout << "Invalid command, please try again!" << std::endl;
 }
 
+//sort function
 void CommandExecuter::executeSort()
 {
 	std::cout << "Welcome to the sort command :D" << std::endl;
@@ -141,7 +145,10 @@ void CommandExecuter::executeSort()
 	library.printSorted(library);
 	std::cin.ignore(10, '\n'); //!!!!
 }
+//end of sort functions
 
+
+//find functions
 void CommandExecuter::executeFind()
 {
 	std::cout << "Welcome to the find function :D" << std::endl;
@@ -222,7 +229,6 @@ void CommandExecuter::findBookByAuthor()
 
 void CommandExecuter::findBookBySummary()
 {
-	//!!!!!
 	char* summary = new char[512];
 	std::cout << "Please enter part of the summary of the book you want to find: ";
 	std::cin.ignore(1, '/n');
@@ -252,45 +258,70 @@ void CommandExecuter::findBookByISBN()
 		}
 	}
 }
+//end of find functions
 
-void CommandExecuter::output()
+
+//read lines/sentences
+void CommandExecuter::readContent()
 {
 	char* title = new char[100];
+	char* buffer = new char[501];
 	std::cout << "Please enter the title of the book which content you would like to see: ";
+	std::cin.getline(title, 100);
 	int i = library.getIndexOfBook(title);
-	std::ifstream in(library[i].getTextFile(), std::ios::in);
+	if (i == -1)
+	{
+		std::cout << "Book not found!" << std::endl;
+		return;
+	}
+	std::ifstream in;
+	in.open(library[i].getTextFile(), std::ios::in);
 	if (!in.is_open())
 	{
 		std::cout << "The file couldn't be loaded!" << std::endl;
 		return;
 	}
+
 	std::cout << "Please press 1 if you want to read the content in mode \"read pages\" or press 2 for the \"read sentences\" mode: ";
 	do {
 		std::cin >> i;
 		if (i < 1 || i>2) std::cout << "Make sure you press a number between 1 and 2. Try again: " << std::endl;
 	} while (i < 1 || i>2);
 
-	if(i==1)
+
+	if (i == 1)
 	{
-		char* buffer = new char[501];
-		std::cout << "How many pages do you want to read: " << std::endl;
-		int pages = 0;
-		std::cin >> pages;
+		std::cout << "How many pages (lines) would you like to read: " << std::endl;
+		int lines = 0;
+		std::cin >> lines;
 		std::cout << "This is the extract:" << std::endl;
-		for (int j = 0; j < pages && !in.eof(); j++)
+		for (int j = 0; j < lines && !in.eof(); j++)
 		{
 			in.getline(buffer, 500);
 			std::cout << buffer << std::endl;
 		}
 	}
+	// i am not sure i understood this correctly, but the function shows on the screen
+	//a sentence and stops when it find the end of it.
 	else
 	{
-
+		char j = '\0';
+		std::cout << "This is the extract:" << std::endl;
+		while (j != '.' && j != '!' && j != '?')
+		{
+			in.get(j);
+			std::cout << j;
+		}
+		std::cout<<std::endl;
 	}
 
 	in.close();
+	delete[] title;
+	delete[] buffer;
+	std::cin.ignore(10, '\n');
 }
 
+//add a book
 void CommandExecuter::addBook()
 {
 
@@ -318,8 +349,17 @@ void CommandExecuter::addBook()
 
 		std::cout << "Please enter the name of the text file of the book: ";
 		std::cin.getline(temp, 100);
+		for (int i = 0; i < library.getCurrSize(); i++)
+		{
+			if (strcmp(library[i].getTextFile(), temp) == 0)
+			{
+				std::cout << "This file already exists! Please enter another name for the file: ";
+				std::cin.getline(temp, 100);
+				i = -1;
+			}
+		}
 		newBook.setTextFile(temp);
-		//!!!!!!!!!!!!!!!!!!!!!!!!
+
 		std::ofstream newFile(newBook.getTextFile());
 		if (!newFile.is_open())
 		{
@@ -359,6 +399,7 @@ void CommandExecuter::addBook()
 	}
 }
 
+//remove a book
 void CommandExecuter::removeBook()
 {
 	if (isPassCorrect(PASSWORD))
@@ -397,6 +438,7 @@ void CommandExecuter::removeBook()
 	}
 }
 
+//end the program and save the changes
 void CommandExecuter::EndProgram()
 {
 	FileWork::saveChanges(library);

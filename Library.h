@@ -18,7 +18,7 @@ public:
 	~Library();//destructor
 
 	Book& operator [](int index) { return library[index]; }
-	const Book operator[](int ind) const { return library[ind]; }
+	const Book operator[](int index) const { return library[index]; }
 
 	const int getCurrSize() const {
 		return currSize;

@@ -23,7 +23,7 @@ public:
 	void findBookBySummary();
 	void findBookByISBN();
 
-	void output();
+	void readContent();
 
 	void addBook();
 
