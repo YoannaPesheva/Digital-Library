@@ -1,6 +1,7 @@
 #include<iostream>
 #include "Library.h"
 
+//the helping functions
 bool Library::reallocate()
 {
 	capacity *= 2;
@@ -10,7 +11,6 @@ bool Library::reallocate()
 		std::cout << "There was a problem allocating the needed memory!" << std::endl;
 		return false;
 	}
-	//!!!!!!!!!!!!!!
 	for (int i = 0; i < currSize; i++) temporary[i] = library[i];
 	delete[] library;
 	library = temporary;
@@ -29,6 +29,7 @@ void Library::copyAll(const Library& other)
 
 }
 
+//get the index
 int Library::getBookIndex(const char* title)
 {
 	for (int  i = 0; i < this->currSize; i++)
@@ -88,9 +89,9 @@ void Library::remove(char* title)
 	}
 	else 
 	{
-		for (int i = index+1; i<currSize; i++)
+		for (int i = index; i<currSize-1; i++)
 		{
-			std::swap(library[index], library[i]);
+			std::swap(library[i], library[i+1]);
 		}
 		currSize--;
 		std::cout << "Book removed successfully!" << std::endl;
@@ -182,23 +183,23 @@ void Library::sortByRatingDescending()
 }
 //end of sorting functions
 
-//printing the info after the sorting functions
-void Library::printSorted(const Library& library)
+//printing the info after the sorting functions, because its specific
+void Library::printSorted()
 {
-	int size = library.getCurrSize()-1;
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	for (int i = 0; i < size; i++)
+	int size = currSize;
+	for (int i = 0; i < size-1; i++)
 	{
 		std::cout << library[i].getTitle() << std::endl;
 		std::cout << library[i].getAuthor() << std::endl;
 		std::cout << library[i].getISBN() << std::endl;
 		std::cout << std::endl;
 	}
-		std::cout << library[size].getTitle() << std::endl;
-		std::cout << library[size].getAuthor() << std::endl;
-		std::cout << library[size].getISBN() << std::endl;
+		std::cout << library[size-1].getTitle() << std::endl;
+		std::cout << library[size-1].getAuthor() << std::endl;
+		std::cout << library[size-1].getISBN() << std::endl;
 }
 
+//<<
 std::ostream& operator<<(std::ostream& out, const Library& library)
 {
 	int end = library.getCurrSize();
@@ -210,7 +211,6 @@ std::ostream& operator<<(std::ostream& out, const Library& library)
 		out << library[i].getSummary() << std::endl;
 		out << library[i].getRating() << std::endl;
 		out << library[i].getISBN() << std::endl;
-		//out << "-";
 	}
 	out << library[end-1].getTitle() << std::endl;
 	out << library[end-1].getAuthor() << std::endl;

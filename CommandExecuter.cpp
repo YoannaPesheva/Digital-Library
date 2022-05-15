@@ -8,7 +8,7 @@
 
 const char PASSWORD[] = "pass";
 
-//helper functions
+//helping functions
 bool isPassCorrect(const char* password)
 {
 	char passInput[100] = "";
@@ -78,7 +78,6 @@ int isSameArr(char* firstArr, const char* secondArr)
 
 
 
-
 //CommandExecuter functions
 
 //start the program
@@ -102,14 +101,14 @@ void CommandExecuter::executeSort()
 	int categoryType = 0;
 	do {
 		std::cin >> categoryType;
-		if (categoryType < 1 || categoryType>3) std::cout << "Make sure you press a number between 1 and 3. Try again: " << std::endl;
+		if (categoryType < 1 || categoryType>3) std::cout << "Make sure you enter a number between 1 and 3. Try again: ";
 	} while (categoryType < 1 || categoryType>3);
 
 	std::cout << "Do you want the books to be sorted in ascending order(please press 1 for that) or descending one(please press 2): ";
 	int orderType = 0;
 	do {
 		std::cin >> orderType;
-		if (orderType < 1 || orderType >2) std::cout << "Make sure you press a number between 1 and 2. Try again: " << std::endl;
+		if (orderType < 1 || orderType >2) std::cout << "Make sure you enter a number between 1 and 2. Try again: ";
 	} while (orderType < 1 || orderType>2);
 
 	if (orderType == 1)
@@ -142,8 +141,8 @@ void CommandExecuter::executeSort()
 			library.sortByRatingDescending();
 		}
 	}
-	library.printSorted(library);
-	std::cin.ignore(10, '\n'); //!!!!
+	library.printSorted();
+	std::cin.ignore(10, '\n');
 }
 //end of sort functions
 
@@ -157,7 +156,7 @@ void CommandExecuter::executeFind()
 	int commandType = 0;
 	do {
 		std::cin >> commandType;
-		if (commandType < 1 || commandType>4) std::cout << "Make sure you press a number between 1 and 4. Try again: " << std::endl;
+		if (commandType < 1 || commandType>4) std::cout << "Make sure you enter a number between 1 and 4. Try again: " << std::endl;
 	} while (commandType < 1 || commandType>4);
 	if (commandType == 1)
 	{
@@ -179,7 +178,7 @@ void CommandExecuter::executeFind()
 
 void CommandExecuter::findBookByTitle()
 {
-	char* title = new char[101];
+	char title[101] = "";
 	std::cout << "Please enter the title of the book you want to find: ";
 	std::cin.ignore(1, '/n');
 	std::cin.getline(title, 100);
@@ -198,20 +197,18 @@ void CommandExecuter::findBookByTitle()
 	{
 		std::cout << "Sorry, we couldn\'t find your book!" << std::endl;
 	}
-	delete[] title;
-	title = nullptr;
 }
 
 void CommandExecuter::findBookByAuthor()
 {
-	char* author = new char[101];
+	char author[101]="";
 	std::cout << "Please enter the author of the book you want to find: ";
 	std::cin.ignore(1, '/n');
 	std::cin.getline(author, 100);
 	bool isBookFound = false;
 	for (int i = 0; i < library.getCurrSize(); i++)
 	{
-		if (isSameArr(author, library[i].getTitle()))
+		if (isSameArr(author, library[i].getAuthor()))
 		{
 			std::cout << "We found your book!" << std::endl;
 			library[i].print();
@@ -223,13 +220,12 @@ void CommandExecuter::findBookByAuthor()
 	{
 		std::cout << "Sorry, we couldn\'t find your book!" << std::endl;
 	}
-	delete[] author;
-	author = nullptr;
 }
 
 void CommandExecuter::findBookBySummary()
 {
-	char* summary = new char[512];
+	char summary[512]="";
+	bool isFound = false;
 	std::cout << "Please enter part of the summary of the book you want to find: ";
 	std::cin.ignore(1, '/n');
 	std::cin.getline(summary, 511);
@@ -237,26 +233,37 @@ void CommandExecuter::findBookBySummary()
 	{
 		if ((strstr(library[i].getSummary(), summary)) != nullptr)
 		{
+			isFound = true;
 			library[i].print();
 			break;
 		}
 	}
-	delete[] summary;
-	summary = nullptr;
+	if (isFound == false)
+	{
+		std::cout << "Sorry, we couldn\'t find your book!" << std::endl;
+	}
 }
 
 void CommandExecuter::findBookByISBN()
 {
 	int ISBN = 0;
+	bool isFound = false;
 	std::cout << "Please enter the ISBN of the book you want to find: ";
 	std::cin >> ISBN;
 	for (int i = 0; i < library.getCurrSize(); i++)
 	{
 		if (library[i].getISBN() == ISBN)
 		{
+			isFound = true;
 			library[i].print();
+			break;
 		}
 	}
+	if (isFound == false)
+		{
+			std::cout << "Sorry, we couldn\'t find your book!" << std::endl;
+		}
+		std::cin.ignore(10, '\n');
 }
 //end of find functions
 
@@ -264,16 +271,19 @@ void CommandExecuter::findBookByISBN()
 //read lines/sentences
 void CommandExecuter::readContent()
 {
-	char* title = new char[100];
-	char* buffer = new char[501];
+	char title[101]="";
+	char buffer[512]="";
+
 	std::cout << "Please enter the title of the book which content you would like to see: ";
 	std::cin.getline(title, 100);
+
 	int i = library.getIndexOfBook(title);
 	if (i == -1)
 	{
-		std::cout << "Book not found!" << std::endl;
+		std::cout << "Sorry, we couldn\'t find your book!" << std::endl;
 		return;
 	}
+
 	std::ifstream in;
 	in.open(library[i].getTextFile(), std::ios::in);
 	if (!in.is_open())
@@ -285,7 +295,7 @@ void CommandExecuter::readContent()
 	std::cout << "Please press 1 if you want to read the content in mode \"read pages\" or press 2 for the \"read sentences\" mode: ";
 	do {
 		std::cin >> i;
-		if (i < 1 || i>2) std::cout << "Make sure you press a number between 1 and 2. Try again: " << std::endl;
+		if (i < 1 || i>2) std::cout << "Make sure you enter a number between 1 and 2. Try again: " << std::endl;
 	} while (i < 1 || i>2);
 
 
@@ -293,11 +303,14 @@ void CommandExecuter::readContent()
 	{
 		std::cout << "How many pages (lines) would you like to read: " << std::endl;
 		int lines = 0;
-		std::cin >> lines;
+		do {
+			std::cin >> lines;
+			if(lines<0) std::cout<< "Make sure you enter a positive number!" << std::endl;
+		} while (lines < 0);
 		std::cout << "This is the extract:" << std::endl;
 		for (int j = 0; j < lines && !in.eof(); j++)
 		{
-			in.getline(buffer, 500);
+			in.getline(buffer, 511);
 			std::cout << buffer << std::endl;
 		}
 	}
@@ -316,8 +329,6 @@ void CommandExecuter::readContent()
 	}
 
 	in.close();
-	delete[] title;
-	delete[] buffer;
 	std::cin.ignore(10, '\n');
 }
 
@@ -327,7 +338,7 @@ void CommandExecuter::addBook()
 
 	if (isPassCorrect(PASSWORD)) {
 		Book newBook;
-		char* temp = new char[512];
+		char temp[512]="";
 		double rating = 0;
 		int ISBN = 0;
 
@@ -389,8 +400,6 @@ void CommandExecuter::addBook()
 		library.add(newBook);
 		std::cout << "The book was added successfully!" << std::endl;
 
-		delete[] temp;
-		temp = nullptr;
 		std::cin.ignore(10, '\n');
 	}
 	else
@@ -405,7 +414,7 @@ void CommandExecuter::removeBook()
 	if (isPassCorrect(PASSWORD))
 	{
 		std::cout << std::endl << "Please enter the title of the book you want removed: ";
-		char* title = new char[101];
+		char title[101] = "";
 		std::cin.getline(title, 100);
 		int j = library.getIndexOfBook(title);
 		if (j != -1)
@@ -425,12 +434,18 @@ void CommandExecuter::removeBook()
 					std::cout << "An error occured while deleting the file!" << std::endl;
 					return;
 				}
+				library.remove(title);
+				std::cin.ignore(10, '\n');
 			}
-			std::cin.ignore(10, '\n');
+			else {
+				library.remove(title);
+				std::cin.ignore(10, '\n');
+			}
 		}
-		library.remove(title);
-		delete[] title;
-		title = nullptr;
+		else
+		{
+			std::cout << "Sorry, we couldn\'t find your book!" << std::endl;
+		}
 	}
 	else
 	{

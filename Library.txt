@@ -1,18 +1,24 @@
-title
-author
-file
-summary
-5
-6
-title1
-author1
-file1
-summary1
-7
-8
-d
-d
-d
-1
-2
-4567
+Where the crawdads sing
+Delia Owens
+wherethecrawdadssing
+Where the Crawdads Sing is part bildungsroman and part crime drama, centered around Kya.
+9.7
+178654
+We were liars
+E. Lockhart
+wewereliars
+The novel We Were Liars by E. Lockhart is a shocking and twisted tale.
+10
+589621
+The Midnight Library
+Matt Haig
+themidnightlibrary
+The Midnight Library is about Nora, a thirty-something woman who is regretful.
+7.4
+621587
+The Diary of a Young Girl
+thediaryofayounggirl
+Anne Frank
+It tells the story of her family who live in Frankfurt, Germany and suddenly have to go.
+6.8
+671583

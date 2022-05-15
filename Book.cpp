@@ -10,7 +10,7 @@ void Book::copyTxt(char*& destination, const char* source)
 	strcpy(destination, source);
 }
 
-
+//copy all fields
 void Book::copyAll(const Book& other)
 {
 	ISBN = other.ISBN;
@@ -21,6 +21,7 @@ void Book::copyAll(const Book& other)
 	copyTxt(summary, other.summary);
 }
 
+//delete the allocated memory for the fields, which use dynamic memory
 void Book::deleteAll()
 {
 	delete[] author;
@@ -39,7 +40,7 @@ Book::Book()
 	nameOfATextFile = nullptr;
 	summary = nullptr;
 	ISBN = -1;
-	rating = -1; //needs to be between 0 and 10 !!!
+	rating = -1;
 }
 
 Book::Book(const Book& other)

@@ -22,9 +22,9 @@ void FileWork::readBooksFromFile(Library& library)
 		std::cout << "There was an error while trying to open the file!" << std::endl;
 	}
 	int propertyCount = 0;
-	char* buffer = new char[100];
+	char buffer[512]="";
 	Book* tempBook = new Book();
-	bool isEmpty = myFile.peek() == EOF; //!!!!!!!!!!!
+	bool isEmpty = myFile.peek() == EOF;
 	if (!isEmpty)
 	{
 		while (!myFile.eof())
@@ -50,7 +50,7 @@ void FileWork::readBooksFromFile(Library& library)
 			}
 			if (propertyCount == 3)
 			{
-				myFile.getline(buffer, 100);
+				myFile.getline(buffer, 511);
 				tempBook->setSummary(buffer);
 				propertyCount++;
 			}

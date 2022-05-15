@@ -5,8 +5,8 @@ private:
 	char* title;
 	char* nameOfATextFile;
 	char* summary; //a short text 
-	double rating; //9.5
-	int ISBN; //long int?
+	double rating; // for ex. 9.40
+	int ISBN;
 	void copyTxt(char*& destination, const char* source);
 	void copyAll(const Book& other);
 	void deleteAll();
@@ -37,28 +37,5 @@ public:
 
 	//print function
 	void print();
-
-
-	//friend std::istream& operator >>(std::istream& in, Book& book)
-	//{
-	//	in >> book.title;
-	//	in >> book.author;
-	//	in >> book.nameOfATextFile;
-	//	in >> book.summary;
-	//	in >> book.rating;
-	//	in >> book.ISBN;
-	//	return in;
-	//}
-	//friend std::ostream& operator<<(std::ostream& out, const Book& book)
-	//{
-	//	out << book.getTitle();
-	//	out << book.getAuthor();
-	//	out << book.getTextFile();
-	//	out << book.getSummary();
-	//	out << book.getRating();
-	//	out << book.getISBN();
-	//	return out;
-	//	
-	//}
 
 };
