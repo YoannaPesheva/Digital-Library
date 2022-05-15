@@ -31,8 +31,7 @@ void Library::copyAll(const Library& other)
 
 int Library::getBookIndex(const char* title)
 {
-	//!!!!!!!!!!!!!!!!!!
-	for (int i = 0; i < this->currSize; i++)
+	for (int  i = 0; i < this->currSize; i++)
 	{
 		if (strcmp(title, this->library[i].getTitle()) == 0)
 		{
@@ -87,12 +86,14 @@ void Library::remove(char* title)
 	{
 		std::cout << "The book you wanted to remove cannot be found!" << std::endl;
 	}
-	else {
+	else 
+	{
 		for (int i = index+1; i<currSize; i++)
 		{
 			std::swap(library[index], library[i]);
 		}
 		currSize--;
+		std::cout << "Book removed successfully!" << std::endl;
 	}
 
 
@@ -132,8 +133,12 @@ void Library::sortByRatingAscending()
 	for (int i = 0; i < currSize; i++)
 	{
 		for (int j = 0; j < currSize - i - 1; j++)
+		{
 			if (library[j].getRating() > library[j + 1].getRating())
+			{
 				std::swap(library[j], library[j + 1]);
+			}
+		}
 	}
 }
 

@@ -54,5 +54,4 @@ int main()
 		std::cin.getline(command, 16);
 
 	} while (commandCode != -1);
-	//!!
 }
